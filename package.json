@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "ozone",
+  "version": "0.1.0",
+  "description": "Project Ozone: A Robot that may seem generic, but isn't.",
+  "main": "dist/main.js",
+  "repository": "git@github.com:qrmf/Ozone.git",
+  "author": "Alexander McDonald <qrmf.dev@outlook.com>",
+  "license": "GPL-v3.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "start": "node dist/main",
+    "test": "concurrently 'tsc -w' 'nodemon dist/main'"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.1",
+    "discord.js": "~12.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "concurrently": "*",
+    "nodemon": "*",
+    "typescript": "~4.2.3"
+  }
+}

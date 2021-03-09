@@ -1,0 +1,20 @@
+{
+  "discord": {
+    "bot": {
+      "token": "your-discord-token",
+      "user": {
+        "discriminator": "0000",
+        "username": "Wumpus"
+      }
+    },
+    "client": {
+      "ID": "000000000000000000",
+      "secret": "your-clients-secret"
+    },
+    "publicKey": "your-bots-public-key"
+  },
+  "program": {
+    "name": "Project Ozone",
+    "version": "0.0.0"
+  }
+}
