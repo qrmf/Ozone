@@ -17,12 +17,34 @@
  */
 
 import Discord from 'discord.js';
+import ansi from 'ansi-colors';
 
-import { Config } from '../types';
+import { CommandStructure, Config } from '../types';
+import { callHandler } from '../util/commandHandler';
 import { eventLogger } from '../util/logger';
 
 export default function run(client: Discord.Client, config: Config): (...args: any) => void {
   return (message: Discord.Message) => {
-    eventLogger('Event::Message', `Recieved a message from ${message.author.tag} (${message.author.id}) in #${(message.channel as Discord.TextChannel).name} in ${message.guild?.name}`);
+    if (message.author.bot) return;
+    
+    if (message.content.startsWith(config.program.commandPrefix)) {
+      const strippedMessage: string = message.content
+        .replace(config.program.commandPrefix, '')
+        .trim();
+
+      const commandStructure: CommandStructure = {
+        commandName: strippedMessage.split(' ')[0],
+        parameters: strippedMessage.split(' ').slice(1),
+        userInfo: message.author
+      }
+
+      if (commandStructure.commandName.length > 0) {
+        try {
+          callHandler(client, config, message, commandStructure);
+        } catch(err) {
+          eventLogger('Message::CommandHandler', ansi.red(`ERROR: ${err}`))
+        }
+      }
+    }
   }
 }

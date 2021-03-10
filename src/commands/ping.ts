@@ -16,14 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import ansi from 'ansi-colors';
+import Discord from 'discord.js';
 
-import { formatDateISO8601 } from './dateTime';
+import { CommandHandler, CommandStructure, Config } from '../types';
+import { commandLogger } from '../util/logger';
 
-export function eventLogger(eventType: string, message: string): void {
-  console.log(`${ansi.gray(`[${formatDateISO8601(new Date())}]`)} [Event::${ansi.cyan(eventType)}] ${ansi.italic(message)}`);
+function commandHandler(
+  client: Discord.Client, config: Config, message: Discord.Message, commandInfo: CommandStructure
+): void {
+  const messageCreatedTimestamp: number = message.createdTimestamp;
+  const latency: number = Date.now() - messageCreatedTimestamp;
+
+  commandLogger('Ping', `Latency is ${latency}ms`)
+  message.channel.send(`Pong!\nLatency is ${latency}ms`);
 }
 
-export function commandLogger(commandOrStage: string, message: string): void {
-  console.log(`${ansi.gray(`[${formatDateISO8601(new Date())}]`)} [${ansi.cyan(`Command::${commandOrStage}`)}] ${ansi.italic(message)}`);
+export default function registerCommandHandler(config: Config): CommandHandler {
+  return {
+    help: 'Displays the latency between the bot and the server',
+    keywords: ['ping'],
+    name: 'ping',
+    run: commandHandler
+  }
 }

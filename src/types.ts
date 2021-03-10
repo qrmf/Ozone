@@ -18,7 +18,28 @@
 
 import Discord from 'discord.js';
 
+export type commandHandler =
+  (client: Discord.Client, config: Config, message: Discord.Message, commandInfo: CommandStructure) => void;
+
+export interface CommandHandler {
+  run: commandHandler;
+  name: string;
+  help: string;
+  keywords: Array<string>;
+}
+
+export interface CommandStructure {
+  commandName: string;
+  parameters: Array<string>;
+  userInfo: Discord.User;
+}
+
 export interface Config {
+  api: {
+    OpenWeatherMap: {
+      apiKey: string;
+    }
+  }
   discord: {
     bot: {
       token: string;
@@ -34,12 +55,38 @@ export interface Config {
     publicKey: string;
   }
   program: {
+    commandPrefix: string;
     name: string;
     version: string;
   }
 }
 
+export interface CompassDirection {
+  short: string;
+  long: string;
+}
+
 export interface EventHandler {
   run?(client: Discord.Client, config: Config): (...args: any) => void;
   exists: boolean;
+}
+
+export interface WeatherData {
+  iconURL: string;
+  requestTime: Date;
+  sun: {
+    rise: Date;
+    set: Date;
+  }
+  temperature: {
+    humidity: number;
+    feelsLike: number;
+    pressure: number;
+    realTemperature: number;
+  }
+  weatherDescription: string;
+  wind: {
+    speed: number;
+    direction: number;
+  }
 }

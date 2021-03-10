@@ -23,6 +23,6 @@ import { eventLogger } from '../util/logger';
 
 export default function run(client: Discord.Client, config: Config): () => void {
   return () => {
-    eventLogger('Events::Ready', `Logged in as "${client.user?.tag || 'unknown'}" (${client.user?.id || 'unknown'})`)
+    eventLogger('Ready', `Logged in as "${client.user?.tag || 'unknown'}" (${client.user?.id || 'unknown'})`)
   }
 }

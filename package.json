@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "ansi-colors": "^4.1.1",
+    "axios": "^0.21.1",
     "discord.js": "~12.5.1"
   },
   "devDependencies": {
     "@types/node": "*",
+    "@types/node-fetch": "^2.5.8",
     "concurrently": "*",
     "nodemon": "*",
     "typescript": "~4.2.3"

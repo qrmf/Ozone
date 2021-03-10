@@ -21,11 +21,9 @@ export function formatDateISO8601(date: Date): string {
   const month = date.getUTCMonth();
   const day = date.getUTCDay();
 
-  const timeString = date.toTimeString();
+  const timeString = date.toLocaleTimeString();
 
-  
-
-  return `${year}-${month}-${day} ${timeString}`;
+  return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day} ${timeString}`;
 }
 
 new Date().toTimeString()

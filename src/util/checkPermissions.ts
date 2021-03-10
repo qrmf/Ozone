@@ -16,14 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import ansi from 'ansi-colors';
+import { GuildMember, PermissionString } from 'discord.js';
 
-import { formatDateISO8601 } from './dateTime';
-
-export function eventLogger(eventType: string, message: string): void {
-  console.log(`${ansi.gray(`[${formatDateISO8601(new Date())}]`)} [Event::${ansi.cyan(eventType)}] ${ansi.italic(message)}`);
+export function checkUserHasPermission(member: GuildMember, permission: PermissionString): boolean {
+  return member.hasPermission(permission);
 }
 
-export function commandLogger(commandOrStage: string, message: string): void {
-  console.log(`${ansi.gray(`[${formatDateISO8601(new Date())}]`)} [${ansi.cyan(`Command::${commandOrStage}`)}] ${ansi.italic(message)}`);
+export function getUserPermissions(member: GuildMember): Array<PermissionString> {
+  return member.permissions.toArray();
 }

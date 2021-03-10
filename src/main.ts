@@ -18,6 +18,7 @@
 
 // Module Imports
 import { Client } from 'discord.js';
+import registerHandlers from './util/commandHandler';
 
 // Local Imports
 import config from './util/config';
@@ -28,6 +29,9 @@ const client: Client = new Client();
 
 // Register all events
 eventHandler(client, config);
+
+//  Register all commands
+registerHandlers(client, config);
 
 // Login to the bot account
 client.login(config.discord.bot.token);
